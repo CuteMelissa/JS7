@@ -5,204 +5,153 @@
     <title>Shopping</title>
     <script src="js/jquery.js"></script>
     <style>
-        *{
+        body {
             margin: 0;
-            padding: 0;
         }
-        #box{
-            width: 700px;
-            height: 400px;
-            position: relative;
-            margin:0 auto;
-            margin-top: 100px;
-            overflow: hidden;
-        }
-        .ul_list{
-            width:3500px;
-            height: 400px;
-            position: absolute;
-        }
-        .li_list{
-            width: 700px;
-            height: 400px;
+        ul li {
             list-style: none;
-            float: left;
         }
-        .li_list img{
-            width: 100%;
-            height: 100%;
+        #box {
+            position: relative;
+            width: 590px;
+            height: 470px;
+            margin: 0 auto;
         }
-        .odiv_nav{
+        .li_list {
+            display: none;
+            width: 590px;
+            height: 470px;
             position: absolute;
-            bottom: 20px;
-            left: 50%;
-            margin-left: -100px;
         }
-        .span_list{
+        img {
+            width: 590px;
+            height: 470px;
+        }
+        .btn_list {
+            position: absolute;
+            width: 150px;
+            left: 40px;
+            bottom: 20px;
+        }
+        .btn {
+            opacity: 0.5;
             width: 10px;
             height: 10px;
-            background-color: gray;
-            border-radius:50%;
             float: left;
+            background-color: rgba(51, 51, 51, 0.7);
+            border-radius: 5px;
+            margin-right: 8px;
+        }
+        .active {
+            opacity: 1;
+            background-color: white;
+            border-color: white;
+        }
+        .bt {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border-radius:50%;
+            font-size: 20px;
+            line-height: 40px;
+            top: 48%;
+            text-align: center;
+            color: white;
+            background-color: rgba(51, 51, 51, 0.7);
+            opacity: 0.4;
+        }
+        .bt:hover {
+            opacity: 0.5;
+            color: white;
+            background-color: black;
+        }
+        #left {
+            left: 40px;
             margin-left: 20px;
         }
-        .left_click{
-            position: absolute;
-            border-radius:50%;
-            background-color: rgb(51,51,51);
-            width: 40px;
-            height: 40px;
-            font-size:2em;
-            color: white;
-            text-align: center;
-            line-height: 40px;
-            margin-top: 180px;
-            margin-left: 5px;
-        }
-        .right_click{
-            position: absolute;
-            right: 0px;
-            width: 40px;
-            height: 40px;
-            border-radius:50%;
-            background-color: rgb(51,51,51);
-            font-size:2em;
-            color: white;
-            text-align: center;
-            line-height: 40px;
-            margin-top: 180px;
-            margin-right: 5px;
-        }
-        .btn_left{
-            position: absolute;
-            left: -40px;
-            width: 40px;
-            height: 400px;
-            opacity: 0.5;
-            z-index: 9999;
-            box-shadow:40px 0px 150px white;
-            transition: all 0.2s;
-        }
-    
-        .btn_right{
-            position: absolute;
+        #right {
             right: -40px;
-            width: 40px;
-            height: 400px;
-            font-size: 4em;
-            box-shadow:-40px 0px 150px white;
-            opacity: 0.5;
-            z-index: 9999;
-            transition: all 0.2s;
+            margin-right: 20px;
         }
     </style>
 </head>
 <body>
     <div id="box">
-        <ul class="ul_list">
-            <li class="li_list"><img src="imgs/01.jpg" alt=""/></li>
-            <li class="li_list"><img src="imgs/02.jpg" alt=""/></li>
-            <li class="li_list"><img src="imgs/03.jpg" alt=""/></li>
-            <li class="li_list"><img src="imgs/04.jpg" alt=""/></li>
-            <li class="li_list"><img src="imgs/01.jpg" alt=""/></li>
+        <ul id="slider">
+            <li class="li_list"><img src="imgs/1.jpg" alt="" /></li>
+            <li class="li_list"><img src="imgs/2.jpg" alt="" /></li>
+            <li class="li_list"><img src="imgs/3.jpg" alt="" /></li>
+            <li class="li_list"><img src="imgs/4.jpg" alt="" /></li>
+            <li class="li_list"><img src="imgs/5.jpg" alt="" /></li>
+            <li class="li_list"><img src="imgs/6.jpg" alt="" /></li>
+            <li class="li_list"><img src="imgs/7.jpg" alt="" /></li>
+            <li class="li_list"><img src="imgs/8.jpg" alt="" /></li>
         </ul>
-        <div class="odiv_nav">
-            <span class="span_list"></span>
-            <span class="span_list"></span>
-            <span class="span_list"></span>
-            <span class="span_list"></span>
+
+        <div class="btn_list">
+            <div class="btn active"></div>
+            <div class="btn"></div>
+            <div class="btn"></div>
+            <div class="btn"></div>
+            <div class="btn"></div>
+            <div class="btn"></div>
+            <div class="btn"></div>
+            <div class="btn"></div>
         </div>
-        <div class="left_click"><p><</p></div>
-        <div class="right_click"><p>></p></div>
-        <div class="btn_left"></div>
-        <div class="btn_right"></div>
+        <span id="left" class="bt"><</span>
+        <span id="right" class="bt">></span>
     </div>
 	<script>
-         $(function(){
-            var num=0;
-            var timer=null;
-            go();
-            $("#box").mouseenter(function(){
-                clearInterval(timer);
-            }).mouseleave(function(){
-            go();//移出后执行go函数
-            });
-        $(".span_list").eq(0).css("backgroundColor","white");
-        function go(){
-            timer=setInterval(function(){
-                num++;
-                if(num>4){
-                    num=1;
-                    $(".ul_list").css("margin-left","0px");
+        $(document).ready(function() {
+        var index = 0;
+        var stop = false;
+        var $li = $("#box").find("#slider").children(".li_list");
+        var $page = $("#box").find(".btn_list").children(".btn");
+        $page.hover(function() {
+            index = $(this).index();
+            $(this).addClass("active").stop(true, true).siblings().removeClass("active");
+            $li.eq(index).stop(true, true).fadeIn(1000).siblings().fadeOut(1000);
+        });
+        $("#left").click(function() {
+            clearInterval(timer);
+            index--;
+            if (index < 0) {
+                index = $li.length - 1;
+            }
+            $li.eq(index).stop(true, true).fadeIn().siblings().fadeOut();
+            $page.eq(index).addClass("active").stop(true, true).siblings().removeClass("active");
+        });
+        $("#right").click(function() {
+            clearInterval(timer);
+            index++;
+            if (index > $li.length - 1) {
+                index = 0;
+            }
+            $li.eq(index).stop(true, true).fadeIn().siblings().fadeOut();
+            $page.eq(index).addClass("active").stop(true, true).siblings().removeClass("active");
+        });
+        var timer = setInterval(function() {
+            if (stop) return;
+            index++;
+            if (index > $li.length - 1) {
+                index = 0;
+            }
+            $li.eq(index).stop(true, true).fadeIn().siblings().fadeOut();
+            $page.eq(index).addClass("active").stop(true, true).siblings().removeClass("active");
+        }, 2000);
+        $("#box").mousemove(function() {
+            clearInterval(timer);
+        }).mouseout(function() {
+            timer = setInterval(function() {
+                if (stop) return;
+                index++;
+                if (index > $li.length - 1) {
+                    index = 0;
                 }
-                if(num==4){
-                    $(".span_list").css("backgroundColor","transparent");
-                    $(".span_list").eq(0).css("backgroundColor","white");
-                }
-                else{
-                    $(".span_list").css("backgroundColor","transparent");
-                    $(".span_list").eq(num).css("backgroundColor","white");
-                }
-                $(".ul_list").animate({"marginLeft":-700*num+"px"},580);
-            },2000);
-        }
-
-        $(".span_list").each(function (index) {
-            $(this).click(function () {
-                num=index;
-                $(".span_list").css("backgroundColor","transparent");
-                $(".span_list").eq(num).css("backgroundColor","white");
-                $(".ul_list").stop().animate({"marginLeft":-700*num+"px"},580);
-            })
+                $li.eq(index).stop(true, true).fadeIn().siblings().fadeOut();
+                $page.eq(index).addClass("active").stop(true, true).siblings().removeClass("active");
+            }, 2000);
         });
-
-        $(".right_click").click(function(){
-            if(num<=4){num++;}
-            if(num>4){
-                num=1;
-                $(".ul_list").css("margin-left","0px");
-            }
-            if(num==4){
-                $(".span_list").css("backgroundColor","transparent");
-                $(".span_list").eq(0).css("backgroundColor","white");
-            }
-            else{
-                $(".span_list").css("backgroundColor","transparent");
-                $(".span_list").eq(num).css("backgroundColor","white");
-            }
-            $(".ul_list").stop().animate({"marginLeft":-700*num+"px"},580);
-
-        });
-
-        $(".left_click").click(function(){
-            if(num>=0){num--;}
-            if(num<0){
-                num=3;
-                $(".ul_list").css("margin-left","-2800px")
-                $(".span_list").css("backgroundColor","transparent");
-                $(".span_list").eq(3).css("backgroundColor","white");
-            }
-            else{
-                $(".span_list").css("backgroundColor","transparent");
-                $(".span_list").eq(num).css("backgroundColor","white");
-            }
-            $(".ul_list").stop().animate({"marginLeft":-700*num+"px"},580);
-
-        });
-
-
-        $(".left_click").hover(function(){
-            $(".btn_left").css("opacity","1");
-        },function(){
-            $(".btn_left").css("opacity","0.5");
-        });
-
-        $(".right_click").hover(function(){
-            $(".btn_right").css("opacity","1");
-        },function(){
-            $(".btn_right").css("opacity","0.5");
-        });
-
     });
     </script>
 </body>
