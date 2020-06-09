@@ -41,29 +41,37 @@
         .span_list{
             width: 10px;
             height: 10px;
-            border: 3px solid white;
+            background-color: gray;
             border-radius:50%;
             float: left;
             margin-left: 20px;
         }
         .left_click{
             position: absolute;
-            width: 80px;
-            height: 400px;
-            font-size:4em;
+            border-radius:50%;
+            background-color: rgb(51,51,51);
+            width: 40px;
+            height: 40px;
+            font-size:2em;
             color: white;
             text-align: center;
-            line-height: 400px;
+            line-height: 40px;
+            margin-top: 180px;
+            margin-left: 5px;
         }
         .right_click{
             position: absolute;
             right: 0px;
-            width: 80px;
-            height: 400px;
-            font-size:4em;
+            width: 40px;
+            height: 40px;
+            border-radius:50%;
+            background-color: rgb(51,51,51);
+            font-size:2em;
             color: white;
             text-align: center;
-            line-height: 400px;
+            line-height: 40px;
+            margin-top: 180px;
+            margin-right: 5px;
         }
         .btn_left{
             position: absolute;
@@ -117,7 +125,7 @@
             $("#box").mouseenter(function(){
                 clearInterval(timer);
             }).mouseleave(function(){
-            go();
+            go();//移出后执行go函数
             });
         $(".span_list").eq(0).css("backgroundColor","white");
         function go(){
